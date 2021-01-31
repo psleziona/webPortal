@@ -1,0 +1,39 @@
+
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>Paweł Śleziona blog</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p class="flash_message--main_page">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% if current_user.is_authenticated and form %}
+        <button id="add_post__btn">Dodaj post</button>
+        <div class="add_post__form">
+            {{ wtf.quick_form(form) }}
+        </div>
+    {% endif %}
+    <div class="categories">
+        {% for category in categories %}
+            <a class="categories__tab" href="{{ url_for('index', category=category.name, page=1) }}">{{ category.name.capitalize() }}</a>
+        {% endfor %}
+    </div>
+    {% for post in posts.items %}
+        {% include '_post.html' %}
+    {% endfor %}
+    <div class="pagination">
+        {% for page in posts.iter_pages() %}
+            {% if request.args.page and request.args.page|int == page %}
+                <a class="pagination__pages" style="color: red;" href="{{ url_for('index', category=request.args.category, page=page) }}">{{ page }}</a>
+            {% else %}
+                <a class="pagination__pages" href="{{ url_for('index', page=page, category=request.args.category) }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

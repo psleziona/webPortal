@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Pierdoly</h1>
+    {{ posts }}
+    {% for post in posts %}
+        {{ post.time.strftime('%D') }}
+    {% endfor %}
+</div>
+{% endblock content %}

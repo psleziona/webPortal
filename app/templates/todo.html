@@ -1,0 +1,29 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% set project = request.args.project %}
+<div class="container">
+    {% for proj in projects %}
+        <a href="{{ url_for('todo.index', project=proj.name) }}">{{ proj.name.capitalize() }}</a>
+    {% endfor %}
+    <button id='add_task_btn'>Add task</button>
+    <div class="add_task">
+        {{ wtf.quick_form(form) }}
+    </div>
+    <div class="kanban">
+        {% for table in tables %}
+        <div class="kanban_table">
+            <h3>{{ table.name.capitalize() }}</h3>
+            {% for task in table.tasks %}
+            {% if task.project.name == project %}
+            {% include '_task.html' %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
