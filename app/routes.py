@@ -1,8 +1,10 @@
-from app import app, db
+from app import app, db, login
 from flask import request, render_template, redirect, url_for, flash
 from flask_login import login_user, current_user, logout_user, login_required
 from app.models import User, Post, PostCategory, Comment
 from app.forms import PostForm, RegisterForm, LoginForm, CommentForm
+import jwt
+from app.mails import send_auth_msg
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -35,6 +37,9 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
+        auth_token = user.gen_auth_token()
+        auth_link = app.config['HOST'] + url_for('auth', token=auth_token)
+        send_auth_msg(auth_link, form.email.data)
         db.session.add(user)
         db.session.commit()
         flash('Register successfully')
@@ -47,9 +52,6 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None:
-            flash('No such user')
-            return redirect(url_for('index'))
         if user.check_password(form.password.data):
             login_user(user)
             flash('Success logged')
@@ -58,6 +60,7 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
@@ -67,7 +70,8 @@ def logout():
 @login_required
 def features():
     posts = Post.query.all()
-    return render_template('features.html', posts=posts)
+    users = User.query.all()
+    return render_template('features.html', posts=posts, users=users)
 
 
 
@@ -91,3 +95,20 @@ def post_delete(id):
         db.session.commit()
         return b'done'
     return redirect(url_for('index'))
+
+
+@app.route('/auth/<token>')
+def auth(token):
+    try:
+        print(token)
+        data = jwt.decode(token, 'apka', 'HS256')
+        print(data)
+        user = data['username']
+        user = User.query.filter_by(username=user).first()
+        print(user)
+        user.confirm_user()
+        db.session.commit()
+        flash('Confirm success')
+        return redirect(url_for('login'))
+    except:
+        return redirect(url_for('index'))

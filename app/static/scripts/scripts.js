@@ -3,7 +3,7 @@ const req = new XMLHttpRequest()
 document.addEventListener('DOMContentLoaded', function () {
 
     var add_post = document.querySelector('.add_post__form');
-    var add_post_btn = document.querySelector('#add_post_btn');
+    var add_post_btn = document.querySelector('.add_post__btn');
 
 
     if (add_post_btn) {
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const tasks = document.querySelectorAll('.drag_task')
 
-const tables = document.querySelectorAll('.kanban_table')
+const tables = document.querySelectorAll('.kanban__table')
 
 
 tasks.forEach(task => {

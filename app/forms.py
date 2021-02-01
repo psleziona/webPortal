@@ -4,37 +4,43 @@ from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from app.models import User
 
 class PostForm(FlaskForm):
-    title = StringField('title')
-    post = TextAreaField('post')
+    title = StringField('title', validators=[DataRequired()])
+    post = TextAreaField('post', validators=[DataRequired()])
     category = SelectField('category', choices=[('main', 'Main'),('personal', 'Personal'),('development', 'Development')])
     submit = SubmitField('Dodaj')
 
 
 class RegisterForm(FlaskForm):
-    username = StringField('Username')
-    password = PasswordField('Password')
-    password2 = PasswordField('Repeat password')
-    email = StringField('Email')
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField('Repeat password', validators=[DataRequired(), EqualTo('password')])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Use diffrent username!')
 
-    def validate_email(self, username):
-        email = User.query.filter_by(email=email).first()
-        if email is not None:
+    def validate_email(self, email):
+        mail = User.query.filter_by(email=email.data).first()
+        print(mail)
+        if mail is not None:
             raise ValidationError('Use diffrent e-mail!')
     
 
 class LoginForm(FlaskForm):
-    username = StringField('Username')
-    password = PasswordField('Password')
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is None:
+            raise ValidationError('User doesn\'t exist!')
 
 
 class CommentForm(FlaskForm):
     username = StringField('Username')
-    comment = TextAreaField('Comment')
+    comment = TextAreaField('Comment', validators=[DataRequired()])
     submit = SubmitField('Send')

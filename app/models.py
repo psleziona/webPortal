@@ -2,6 +2,7 @@ from app import login, db
 from datetime import datetime, timedelta
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+import jwt
 
 
 # App models
@@ -13,6 +14,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     superuser = db.Column(db.Boolean, default=False)
+    active = db.Column(db.Boolean, default = False)
+
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -22,6 +25,20 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+    @property
+    def is_active(self):
+        return self.active
+
+    def confirm_user(self):
+        self.active = True
+    
+    def gen_auth_token(self):
+        payload = {
+            'username': self.username
+        }
+        token = jwt.encode(payload, 'apka', 'HS256')
+        return token
 
 
 class Post(db.Model):

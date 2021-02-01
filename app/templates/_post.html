@@ -17,7 +17,7 @@
     <button class="show_comments" id='b{{ post.id }}'>Show comments</button>
     <div class="comments" id='c{{ post.id }}'>
         {% for comment in post.comments %}
-        <div class="comment">
+        <div class="comments__comment">
             <h4>{{ comment.author }}</h4>
             <p>{{ comment.text }}</p>
         </div>

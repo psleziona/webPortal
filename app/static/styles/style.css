@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+.categories {
+  border: 1px solid green;
+}
+.categories__tab {
+  border: 3px solid red;
+}
+
+.add_post__btn {
+  border: 1px solid black;
+}
+.add_post__form {
+  display: none;
+}
+
+.comments {
+  margin-left: 30px;
+  display: none;
+}
+.comments__comment {
+  border: 1px solid black;
+}
+.comments__comment:nth-child(odd) {
+  background-color: gray;
+}
+
+.kanban {
+  display: flex;
+}
+.kanban__table {
+  flex: 1;
+  min-height: 200px;
+  margin: 10px 0;
+  border: 1px solid green;
+}
+.kanban__table__title {
+  text-align: center;
+  position: relative;
+}
+.kanban__table__title::after {
+  content: "";
+  position: absolute;
+  border: 1px solid green;
+  width: 90%;
+  left: 5%;
+  bottom: 0;
+}
+
+.drag_task {
+  width: 80%;
+  min-height: 50px;
+  margin: 0 auto;
+  border: 1px solid blueviolet;
+  background-color: cadetblue;
+  position: relative;
+}
+
+.task_delete {
+  cursor: pointer;
+  border: 1px solid orange;
+  position: absolute;
+  right: 5px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: bolder;
+}
+
+/*# sourceMappingURL=style.css.map */

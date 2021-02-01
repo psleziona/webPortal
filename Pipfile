@@ -11,6 +11,9 @@ flask-bootstrap = "*"
 flask-login = "*"
 pyscss = "*"
 flask-scss = "*"
+wtforms = {extras = ["email"], version = "*"}
+pyjwt = "*"
+flask-mail = "*"
 
 [dev-packages]
 

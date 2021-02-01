@@ -13,10 +13,12 @@
         {% endif %}
     {% endwith %}
     {% if current_user.is_authenticated and form %}
-        <button id="add_post__btn">Dodaj post</button>
+    <div class="add_post">
+        <button class="add_post__btn">Dodaj post</button>
         <div class="add_post__form">
             {{ wtf.quick_form(form) }}
         </div>
+    </div>
     {% endif %}
     <div class="categories">
         {% for category in categories %}

@@ -7,5 +7,12 @@
     {% for post in posts %}
         {{ post.time.strftime('%D') }}
     {% endfor %}
+    <div class="users">
+        {% for user in users %}
+        {{ user.username }}
+        {{ user.is_authenticated }}
+        {{ user.is_active }}
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}
