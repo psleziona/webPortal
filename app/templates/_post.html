@@ -1,26 +1,22 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 <div class="post">
-    {% if post.title %}
-    <h2>{{ post.title }}</h2>
-    {% else %}
-    <h2>Bez tematu</h2>
-    {% endif %}
+    <h2 class="post__title">{{ post.title }}</h2>
     {% if current_user.superuser %}
-    <button id="del_btn{{ post.id }}" class="del_btn">Delete</button>
+        <button id="del_btn{{ post.id }}" class="btn post__del_btn">Delete</button>
     {% endif %}
-    <div class="post-content">
+    <p class="post__content">
         {{ post.content }}
-    </div>
-    <p>{{ post.author.username }} <span>{{ post.time.strftime('%A %-d-%m-%Y %H:%M') }}</span></p>
+    </p>
+    <p class="post__author">Author: <span class="post__author--bold">{{ post.author.username }}</span> <span class="post__time">{{ post.time.strftime('%A %-d-%m-%Y %H:%M') }}</span></p>
     {% if post.comments %}
-    <button class="show_comments" id='b{{ post.id }}'>Show comments</button>
+    <button class="btn comments__show" id='b{{ post.id }}'>Show comments</button>
     <div class="comments" id='c{{ post.id }}'>
         {% for comment in post.comments %}
-        <div class="comments__comment">
-            <h4>{{ comment.author }}</h4>
-            <p>{{ comment.text }}</p>
-        </div>
+            <div class="comments__comment">
+                <h4>{{ comment.author }}</h4>
+                <p>{{ comment.text }}</p>
+            </div>
         {% endfor %}
     </div>
     {% endif %}

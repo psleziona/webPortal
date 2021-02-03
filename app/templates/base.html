@@ -10,25 +10,36 @@
 
 {% block navbar %}
 <div class="container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
-          {% if not current_user.is_authenticated %}
-          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-          <a class="nav-link" href="{{ url_for('register') }}">Register</a>
-          {% else %}
-          {% if current_user.superuser %}
-            <a class="nav-link" href="{{ url_for('todo.index') }}">Todo</a>
-          {% endif %}
-          <a href="#" class="nav-link">{{ current_user.username }}</a>
-          <a href="{{ url_for('features') }}">Features</a>
-          <a href="{{ url_for('logout') }}" class="nav-link">Wyloguj</a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
+  <nav>
+    <ul class="navigation_bar">
+      <li class="navigation_bar__item">
+        <a class="navigation_bar__link" aria-current="page" href="{{ url_for('index') }}">Home</a>
+      </li>
+      {% if not current_user.is_authenticated %}
+      <li class="navigation_bar__item">
+        <a class="navigation_bar__link" href="{{ url_for('login') }}">Login</a>
+      </li>
+      <li class="navigation_bar__item">
+        <a class="navigation_bar__link" href="{{ url_for('register') }}">Register</a>
+      </li>
+      {% else %}
+      {% if current_user.superuser %}
+      <li class="navigation_bar__item">
+        <a class="navigation_bar__link" href="{{ url_for('kanban.index') }}">Todo</a>
+      </li>
+      {% endif %}
+      <li class="navigation_bar__item">
+        <a href="#" class="navigation_bar__link">{{ current_user.username }}</a>
+      </li>
+      <li class="navigation_bar__item">
+        <a class="navigation_bar__link" href="{{ url_for('features') }}">Features</a>
+      </li>
+      <li class="navigation_bar__item navigation_bar__item--logout">
+        <a href="{{ url_for('logout') }}" class="navigation_bar__link">Wyloguj</a>
+      </li>
+      {% endif %}
+    </ul>
+
   </nav>
 </div>
 {% endblock %}

@@ -1,36 +1,46 @@
+@import 'nav';
+@import 'variables';
+
+
 * {
     box-sizing: border-box;
 }
 
 .flash_message {
-
-    &--main_page {
-
-    }
-}
-
-.categories {
-
-    border: 1px solid green;
-    &__tab {
-        border: 3px solid red;
-
+    &__message {
     }
 }
 
 .pagination {
-
-    &__pages {}
+    &__pages {
+    }
 }
 
 .add_post {
-
     &__btn {
-        border: 1px solid black;
+        position: absolute !important;
+        right: 0;
+        background-color: $button-background-color;
+        border-radius: 4px 4px 0 0;
+
+        & > a {
+            color: $d;
+            margin-right: 0 !important;
+
+            &:hover {
+                background-color: $button-background-hover !important;
+            }
+        }
+
+        &:hover {
+            background-color: $button-background-hover !important;
+        }
     }
 
     &__form {
-        display: none;
+        &--hide {
+            display: none;
+        }
     }
 }
 
@@ -45,7 +55,6 @@
             background-color: gray;
         }
     }
-
 }
 
 .kanban {
@@ -56,19 +65,18 @@
         min-height: 200px;
         margin: 10px 0;
         border: 1px solid green;
+    }
+    &__title {
+        text-align: center;
+        position: relative;
 
-        &__title {
-            text-align: center;
-            position: relative;
-
-            &::after {
-                content: '';
-                position: absolute;
-                border: 1px solid green;
-                width: 90%;
-                left: 5%;
-                bottom: 0;
-            }
+        &::after {
+            content: "";
+            position: absolute;
+            border: 1px solid green;
+            width: 90%;
+            left: 5%;
+            bottom: 0;
         }
     }
 }
@@ -93,4 +101,71 @@
     text-align: center;
     font-size: 13px;
     font-weight: bolder;
+}
+
+.posts {
+    &--add {
+        opacity: 0.5;
+    }
+}
+
+.post {
+    position: relative;
+
+    &__title {
+        margin-top: 0;
+        padding-top: 15px;
+    }
+
+    &__content {
+    }
+
+    &__author {
+        &--bold {
+            font-weight: bold;
+        }
+    }
+
+    &__time {
+    }
+
+    &__del_btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        opacity: 0.7;
+        color: $black;
+    }
+}
+
+.nav-tabs {
+    position: relative;
+}
+
+.add_task {
+    &__btn {
+        position: absolute !important;
+        right: 0;
+        background-color: $button-background-color;
+        border-radius: 4px 4px 0 0;
+
+        & > a {
+            color: $d;
+            margin-right: 0 !important;
+
+            &:hover {
+                background-color: $button-background-hover !important;
+            }
+        }
+
+        &:hover {
+            background-color: $button-background-hover !important;
+        }
+    }
+    &__form {
+        &--hide {
+            display: none;
+        }
+    }
 }

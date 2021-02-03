@@ -3,29 +3,31 @@ from app.models import Task, TaskCategory, Project
 from .forms import AddTask
 from app import db
 from .tasks_handle import move_task, delete_task
+from flask_login import current_user, login_required
 
-todo = Blueprint('todo', __name__)
+kanban = Blueprint('kanban', __name__)
 
-@todo.route('/', methods=['POST', 'GET'])
+@kanban.route('/', methods=['POST', 'GET'])
+@login_required
 def index():
-    
     if not request.args.get('project'):
-        return redirect(url_for('todo.index', project=Project.query.get(1).name))
+        return redirect(url_for('kanban.index', project=Project.query.get(1).name))
     form = AddTask()
     if form.validate_on_submit():
         title = form.title.data
         action = form.task.data
         select_project = request.args.get('project')
-        task = Task(name=title, todo=action, project=Project.query.filter_by(name=select_project).first())
+        author = current_user
+        task = Task(name=title, todo=action, project=Project.query.filter_by(name=select_project).first(), author=author)
         db.session.add(task)
         db.session.commit()
-        return redirect(url_for('todo.index', project=select_project))
+        return redirect(url_for('kanban.index', project=select_project))
     tables = TaskCategory.query.all()
-    projects = Project.query.all()
-    return render_template('todo.html', form=form, tables=tables, projects=projects)
+    projects = current_user.project
+    return render_template('kanban.html', form=form, tables=tables, projects=projects)
 
 
-@todo.route('/change', methods=['POST'])
+@kanban.route('/change', methods=['POST'])
 def handle_task():
     task_id = int(request.form['task_id'])
     category_name = request.form['category']
@@ -33,7 +35,7 @@ def handle_task():
     return 'Changed'
 
 
-@todo.route('/delete_task/<id>', methods=['POST'])
+@kanban.route('/delete_task/<id>', methods=['POST'])
 def task_delete(id):
     if delete_task(id):
         return True

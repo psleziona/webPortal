@@ -5,26 +5,32 @@
 {% block content %}
 <div class="container">
     <h1>Paweł Śleziona blog</h1>
+    <div class="flash_message">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for msg in messages %}
-                <p class="flash_message--main_page">{{ msg }}</p>
+                <p class="flash_message__message">{{ msg }}</p>
             {% endfor %}
         {% endif %}
     {% endwith %}
+    </div>
+
+    <ul class="nav nav-tabs">
+        {% for category in categories %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index', category=category.name, page=1) }}">{{ category.name.capitalize() }}</a>
+        </li>
+        {% endfor %}
+        <li class="nav-item add_post__btn">
+            <a href="" class="nav-link">Add post</a>
+        </li>
+    </ul>
     {% if current_user.is_authenticated and form %}
-    <div class="add_post">
-        <button class="add_post__btn">Dodaj post</button>
-        <div class="add_post__form">
+        <div class="add_post__form add_post__form--hide">
             {{ wtf.quick_form(form) }}
         </div>
-    </div>
     {% endif %}
-    <div class="categories">
-        {% for category in categories %}
-            <a class="categories__tab" href="{{ url_for('index', category=category.name, page=1) }}">{{ category.name.capitalize() }}</a>
-        {% endfor %}
-    </div>
+    <div class="posts">
     {% for post in posts.items %}
         {% include '_post.html' %}
     {% endfor %}
@@ -36,6 +42,7 @@
                 <a class="pagination__pages" href="{{ url_for('index', page=page, category=request.args.category) }}">{{ page }}</a>
             {% endif %}
         {% endfor %}
+    </div>
     </div>
 </div>
 {% endblock %}

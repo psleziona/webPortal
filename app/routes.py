@@ -100,12 +100,9 @@ def post_delete(id):
 @app.route('/auth/<token>')
 def auth(token):
     try:
-        print(token)
         data = jwt.decode(token, 'apka', 'HS256')
-        print(data)
         user = data['username']
         user = User.query.filter_by(username=user).first()
-        print(user)
         user.confirm_user()
         db.session.commit()
         flash('Confirm success')

@@ -6,11 +6,18 @@
 {% block content %}
 {% set project = request.args.project %}
 <div class="container">
+    <ul class="nav nav-tabs">
     {% for proj in projects %}
-        <a href="{{ url_for('todo.index', project=proj.name) }}">{{ proj.name.capitalize() }}</a>
-    {% endfor %}
-    <button id='add_task__btn'>Add task</button>
-    <div class="add_task__form">
+    <li class="nav-item">
+        <a href="{{ url_for('kanban.index', project=proj.name) }}">{{ proj.name.capitalize() }}</a>
+    </li>
+        {% endfor %}
+        <li class="nav-item add_task__btn">
+            <a class='nav-link'>Add task</a>
+        </li>
+</ul>
+   
+    <div class="add_task__form add_task__form--hide">
         {{ wtf.quick_form(form) }}
     </div>
     <div class="kanban">

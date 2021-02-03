@@ -15,8 +15,8 @@ Bootstrap(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
 
-from app.apps.todo import todo
-app.register_blueprint(todo.todo, url_prefix='/todo')
+from app.apps.kanban.kanban import kanban
+app.register_blueprint(kanban, url_prefix='/kanban')
 
 
 from app import routes

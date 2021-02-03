@@ -5,6 +5,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 
 
+users_projects = db.Table('users_projects',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('project_id', db.Integer, db.ForeignKey('project.id'))
+)
+
 # App models
 
 class User(UserMixin, db.Model):
@@ -15,6 +20,8 @@ class User(UserMixin, db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     superuser = db.Column(db.Boolean, default=False)
     active = db.Column(db.Boolean, default = False)
+    project = db.relationship('Project', secondary=users_projects, backref='projects')
+    tasks = db.relationship('Task', backref='author')
 
 
     def __repr__(self):
@@ -86,6 +93,7 @@ class Task(db.Model):
     deadline = db.Column(db.Date)
     category = db.Column(db.Integer, db.ForeignKey('task_category.id'), default=1)
     workgroup = db.Column(db.Integer, db.ForeignKey('project.id'))
+    handled_by = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return f'<Activity {self.name}>'
@@ -108,6 +116,7 @@ class Project(db.Model):
     name = db.Column(db.String(30))
     description = db.Column(db.Text)
     tasks = db.relationship('Task', backref='project', lazy='dynamic')
+    users = db.relationship('User', secondary=users_projects, backref='member')
 
     def __repr__(self):
         return f'<Project {self.name}>'
