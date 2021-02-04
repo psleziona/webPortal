@@ -24,8 +24,17 @@
       </li>
       {% else %}
       {% if current_user.superuser %}
-      <li class="navigation_bar__item">
+      <li class="navigation_bar__item nav-drop-project">
         <a class="navigation_bar__link" href="{{ url_for('kanban.index') }}">Todo</a>
+        {% if current_user.project %}
+          <ul class="nav-drop-project__list">
+            {% for project in current_user.project %}
+            <li class="nav-drop-project__item navigation_bar__item">
+              <a class="navigation_bar__link" href="{{ url_for('kanban.index', project=project.name) }}">{{ project.name }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       </li>
       {% endif %}
       <li class="navigation_bar__item">

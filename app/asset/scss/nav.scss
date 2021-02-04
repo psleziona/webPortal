@@ -3,7 +3,7 @@
 nav {
     & .navigation_bar {
         display: block;
-        background-color: $e;
+        background-color: $secondary-color-lighter;
         padding: 0;
         position: relative;
 
@@ -13,7 +13,7 @@ nav {
             cursor: pointer;
 
             &:hover {
-                background-color: $b;
+                background-color: $main-color-lighter;
             }
 
             &--logout {
@@ -26,11 +26,50 @@ nav {
             display: block;
             width: 100%;
             height: 100%;
-            color: $c;
+            color: $main-color-darkner;
             text-decoration: none;
             cursor: pointer;
             text-transform: uppercase;
             font-weight: bolder;
         }
     }
+
+    & .nav-drop-project {
+        position: relative;
+
+        &::after {
+            content: url(#{$imgPath}/drop_arrow.png);
+            width: 5px;
+            height: 5px;
+            object-fit: cover;
+            position: absolute;
+        }
+
+        &__list {
+            z-index: 999;
+            position: absolute;
+            width: inherit;
+            display: none;
+            padding: 0;
+            left: 0;
+            bottom: -100px;
+            background-color: $main-color-lighter;
+        }
+
+        &__item {
+            display: block;
+            width: 100%;
+
+            &:hover {
+                background-color: $secondary-color-lighter;
+            }
+        }
+
+        &:hover {
+            & .nav-drop-project__list {
+                display: block;
+            }
+        }
+    }
 }
+

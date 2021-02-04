@@ -1,10 +1,20 @@
+// Colors
+
 $white: #fff;
 $black: #000;
+
+$main-color-lighter: #ffe0ab;
+$main-color-darkner: #c7902e;
+
+$secondary-color: #2e78c7;
+$secondary-color-darkner: #043d7a;
+$secondary-color-lighter: #2e78c7;
+
 $text-color: $black;
-$button-background-color: #ffe0ab;
-$button-background-hover: #c7902e;
-$a: #2e78c7;
-$b: #ffe0ab;
-$c: #c7902e;
-$d: #043d7a;
-$e: #2e78c7;
+
+$button-background-color: $main-color-lighter;
+$button-background-hover: $main-color-darkner;
+
+// Img
+
+$imgPath: '../../static/images'

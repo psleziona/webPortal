@@ -71,12 +71,16 @@ document.addEventListener('DOMContentLoaded', function () {
 // Kanban
 
 
-const tasks = document.querySelectorAll('.drag_task')
+const tasks = document.querySelectorAll('.task')
 
 const tables = document.querySelectorAll('.kanban__table')
 
 
 tasks.forEach(task => {
+
+    if (task.parentElement.children[0].innerText == 'Finished') {
+        task.draggable = false;
+    };
 
     task.addEventListener('dragstart', e => {
         task.classList.add('moving')
@@ -109,9 +113,12 @@ const updateDB = (task_id, category_name) => {
     form.append('task_id', task_id)
     form.append('category', category_name)
     req.send(form)
+    req.addEventListener('load', () => {
+        location.reload()
+    })
     }
 
-task_del_btns = document.querySelectorAll('.task_delete')
+task_del_btns = document.querySelectorAll('.task__delete')
 
 task_del_btns.forEach(del_btn => {
 

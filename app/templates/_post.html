@@ -14,8 +14,8 @@
     <div class="comments" id='c{{ post.id }}'>
         {% for comment in post.comments %}
             <div class="comments__comment">
-                <h4>{{ comment.author }}</h4>
-                <p>{{ comment.text }}</p>
+                <h4 class="comments__title">{{ comment.author }}</h4>
+                <p class="comments__content">{{ comment.text }}</p>
             </div>
         {% endfor %}
     </div>

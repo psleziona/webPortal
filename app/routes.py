@@ -77,7 +77,7 @@ def features():
 
 @app.route('/post_handler/<id>', methods=['POST'])
 def post_handler(id):
-    username = request.form['username']
+    username = current_user.username if not current_user.is_anonymous else 'Anonymous'
     comment_content = request.form['comment']
     post = Post.query.get(id)
     comment = Comment(author=username, text=comment_content, pos=post)

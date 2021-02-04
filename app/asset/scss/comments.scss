@@ -1,0 +1,25 @@
+.comments {
+    margin-left: 30px;
+    display: none;
+
+    &__comment {
+        border-radius: 2px;
+        &:nth-child(odd) {
+            background-color: $main-color-darkner;
+        }
+
+        &:nth-child(even) {
+            background-color: $main-color-lighter;
+        }
+    }
+
+    &__title {
+        margin: 0;
+        padding:15px 0 10px 5px;
+    }
+
+    &__content {
+        margin-bottom: 0;
+        padding: 0 0 10px 5px;
+    }
+}
