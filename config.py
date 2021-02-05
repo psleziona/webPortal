@@ -10,4 +10,4 @@ class Config:
     MAIL_PORT = 25
     MAIL_USERNAME = 'gocio@vpszdjecia.online'
     MAIL_PASSWORD = 'gocio12345'
-    HOST = '127.0.0.1:5000'
+    HOST = 'https://fierce-eyrie-00435.herokuapp.com'
