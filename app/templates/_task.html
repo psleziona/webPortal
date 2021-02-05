@@ -1,5 +1,8 @@
 <div draggable="true" class="task" id={{ task.id }}>
+    {% set task_content = task.todo.split('\r\n') %}
     <span class="task__delete">x</span>
     <h4 class="task__title">{{ task.name }}</h4>
-    <p class="task__text">{{ task.todo }}</p>
+    {% for paragraph in task_content %}
+    <p class="task__text">{{ paragraph }}</p>
+    {% endfor %}
 </div>

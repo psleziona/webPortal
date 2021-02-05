@@ -1,5 +1,6 @@
-@import 'nav';
 @import 'variables';
+
+@import 'nav';
 @import 'kanban';
 @import 'posts';
 @import 'comments';
@@ -20,6 +21,14 @@
 
 .pagination {
     &__pages {
+
+        padding: 0 5px;
+        color: $secondary-color-darkner;
+
+        &.active {
+            background-color: $main-color-lighter;
+            font-size: calc(100% + 2px);
+        }
     }
 }
 

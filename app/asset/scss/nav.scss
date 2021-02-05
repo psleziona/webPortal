@@ -1,5 +1,3 @@
-@import "variables";
-
 nav {
     & .navigation_bar {
         display: block;
@@ -8,7 +6,6 @@ nav {
         position: relative;
 
         &__item {
-            padding: 15px 50px;
             display: inline-block;
             cursor: pointer;
 
@@ -23,6 +20,7 @@ nav {
         }
 
         &__link {
+            padding: 15px 50px;
             display: block;
             width: 100%;
             height: 100%;
@@ -38,11 +36,12 @@ nav {
         position: relative;
 
         &::after {
-            content: url(#{$imgPath}/drop_arrow.png);
+            content: '';
+            background-image: url(#{$imgPath}/drop_arrow.png);
+            background-size: 10px 10px;
             width: 5px;
             height: 5px;
-            object-fit: cover;
-            position: absolute;
+            
         }
 
         &__list {

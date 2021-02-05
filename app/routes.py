@@ -14,6 +14,7 @@ def index():
 
     form = PostForm()
     comment_form = CommentForm()
+    print(form.post.data)
 
     if form.validate_on_submit():
         cat = PostCategory.query.filter_by(name=form.category.data).first()
@@ -109,3 +110,9 @@ def auth(token):
         return redirect(url_for('login'))
     except:
         return redirect(url_for('index'))
+
+@app.route('/user/<user>')
+def user_page(user):
+    if current_user.username == user:
+        return '<h1>Witaj na swojej stronie</h1>'
+    return f'<h1>Jestes na stronie uzytkownika {user}</h1>'

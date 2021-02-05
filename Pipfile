@@ -14,6 +14,7 @@ flask-scss = "*"
 wtforms = {extras = ["email"], version = "*"}
 pyjwt = "*"
 flask-mail = "*"
+gunicorn = "*"
 
 [dev-packages]
 

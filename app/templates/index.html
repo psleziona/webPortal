@@ -21,13 +21,20 @@
             <a class="nav-link" href="{{ url_for('index', category=category.name, page=1) }}">{{ category.name.capitalize() }}</a>
         </li>
         {% endfor %}
+        {% if current_user.is_authenticated %}
         <li class="nav-item add_post__btn">
             <a href="" class="nav-link">Add post</a>
         </li>
+        {% endif %}
     </ul>
     {% if current_user.is_authenticated and form %}
         <div class="add_post__form add_post__form--hide">
-            {{ wtf.quick_form(form) }}
+            {{ form.hidden_tag() }}
+            {{ wtf.form_errors(form, hiddens="only") }}
+            {{ wtf.form_field(form.title) }}
+            {{ wtf.form_field(form.post) }}
+            {{ wtf.form_field(form.category, id='select_post_category') }}
+            {{ wtf.form_field(form.submit) }}
         </div>
     {% endif %}
     <div class="posts">
@@ -37,7 +44,7 @@
     <div class="pagination">
         {% for page in posts.iter_pages() %}
             {% if request.args.page and request.args.page|int == page %}
-                <a class="pagination__pages" style="color: red;" href="{{ url_for('index', category=request.args.category, page=page) }}">{{ page }}</a>
+                <a class="pagination__pages active" href="{{ url_for('index', page=page, category=request.args.category) }}">{{ page }}</a>
             {% else %}
                 <a class="pagination__pages" href="{{ url_for('index', page=page, category=request.args.category) }}">{{ page }}</a>
             {% endif %}

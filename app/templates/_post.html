@@ -2,21 +2,23 @@
 
 <div class="post">
     <h2 class="post__title">{{ post.title }}</h2>
-    {% if current_user.superuser %}
-        <button id="del_btn{{ post.id }}" class="btn post__del_btn">Delete</button>
-    {% endif %}
-    <p class="post__content">
-        {{ post.content }}
-    </p>
-    <p class="post__author">Author: <span class="post__author--bold">{{ post.author.username }}</span> <span class="post__time">{{ post.time.strftime('%A %-d-%m-%Y %H:%M') }}</span></p>
+        {% if current_user.superuser %}
+            <button id="del_btn{{ post.id }}" class="btn post__del_btn">Delete</button>
+        {% endif %}
+    {% set post_paragraphs = post.content.split('\r\n') %}
+    {% for paragraph in post_paragraphs %}
+        <p class="post__content"> {{ paragraph }}</p>
+    {% endfor %}
+    <p class="post__author">Author: <span class="post__author--bold">{{ post.author.username }}</span> <span
+            class="post__time">{{ post.time.strftime('%A %-d-%m-%Y %H:%M') }}</span></p>
     {% if post.comments %}
-    <button class="btn comments__show" id='b{{ post.id }}'>Show comments</button>
+    <button class="btn comments__show" id='b{{ post.id }}'>Show comments [{{ post.comments|length }}]</button>
     <div class="comments" id='c{{ post.id }}'>
         {% for comment in post.comments %}
-            <div class="comments__comment">
-                <h4 class="comments__title">{{ comment.author }}</h4>
-                <p class="comments__content">{{ comment.text }}</p>
-            </div>
+        <div class="comments__comment">
+            <h4 class="comments__title">{{ loop.index }}# {{ comment.author }}</h4>
+            <p class="comments__content">{{ comment.text }}</p>
+        </div>
         {% endfor %}
     </div>
     {% endif %}

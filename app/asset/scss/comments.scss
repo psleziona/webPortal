@@ -5,11 +5,11 @@
     &__comment {
         border-radius: 2px;
         &:nth-child(odd) {
-            background-color: $main-color-darkner;
+            background-color: $comments-odd;
         }
 
         &:nth-child(even) {
-            background-color: $main-color-lighter;
+            background-color: $comments-even;
         }
     }
 

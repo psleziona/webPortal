@@ -20,3 +20,4 @@ app.register_blueprint(kanban, url_prefix='/kanban')
 
 
 from app import routes
+db.create_all()
