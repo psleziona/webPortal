@@ -15,6 +15,7 @@ wtforms = {extras = ["email"], version = "*"}
 pyjwt = "*"
 flask-mail = "*"
 gunicorn = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
