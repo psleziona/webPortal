@@ -2,8 +2,17 @@ const req = new XMLHttpRequest()
 
 const category_tabs = () => {
     const url = new URL(window.location.href);
-    const category = url.searchParams.get('category');
-    const project = url.searchParams.get('project')
+
+    let category = url.searchParams.get('category');
+    let project = url.searchParams.get('project');
+
+    if (category) {
+        category = category.toLowerCase();
+    }
+    if (project) {
+        project = project.toLowerCase();
+    }
+    
     let tabs = document.querySelector('.nav-tabs').children;
 
 
@@ -21,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
     category_tabs()
 
 
-    var add_post = document.querySelector('.add_post__form');
-    var add_post_btn = document.querySelector('.add_post__btn');
+    const add_post = document.querySelector('.add_post__form');
+    const add_post_btn = document.querySelector('.add_post__btn');
     const posts = document.querySelector('.posts');
 
 
@@ -35,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
 
-    var comments_btn = document.querySelectorAll('.comments__show');
+    let comments_btn = document.querySelectorAll('.comments__show');
 
 
     for (i = 0; i < comments_btn.length; i++) {
@@ -46,14 +55,13 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
 
-    deleteButtons = document.querySelectorAll('.post__del_btn');
+    const deleteButtons = document.querySelectorAll('.post__del_btn');
 
     var del_post = function (id) {
-        var post_id = id.slice(7)
-        var url = '/post_delete/' + post_id
+        let post_id = id.slice(7)
         req.open('POST', '/post_delete/' + post_id)
         req.send()
-        req.addEventListener('load', function (e) {
+        req.addEventListener('load', () => {
             location.reload()
 
         });
@@ -132,11 +140,11 @@ const updateDB = (task_id, category_name) => {
     })
 }
 
-task_del_btns = document.querySelectorAll('.task__delete')
+const task_del_btns = document.querySelectorAll('.task__delete')
 
 task_del_btns.forEach(del_btn => {
 
-    del_btn.addEventListener('click', function () {
+    del_btn.addEventListener('click', function() {
         task_id = this.parentElement.id
         req.open('POST', '/kanban/delete_task/' + task_id)
         req.send(null)
@@ -154,8 +162,3 @@ add_task_btn.addEventListener('click', e => {
     e.preventDefault()
     add_task__form.classList.toggle('add_task__form--hide')
 });
-
-
-
-
-

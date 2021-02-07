@@ -8,12 +8,24 @@ nav .navigation_bar__item {
   display: inline-block;
   cursor: pointer;
 }
-nav .navigation_bar__item:hover {
-  background-color: #ffe0ab;
+@media screen and (max-width: 600px) {
+  nav .navigation_bar__item {
+    display: block;
+  }
+}
+@media not all and (hover: none) {
+  nav .navigation_bar__item:hover {
+    background-color: #ffe0ab;
+  }
 }
 nav .navigation_bar__item--logout {
   position: absolute;
   right: 0;
+}
+@media screen and (max-width: 600px) {
+  nav .navigation_bar__item--logout {
+    top: 0;
+  }
 }
 nav .navigation_bar__link {
   padding: 15px 50px;
@@ -45,15 +57,33 @@ nav .nav-drop-project__list {
   left: 0;
   background-color: #ffe0ab;
 }
+@media screen and (max-width: 600px) {
+  nav .nav-drop-project__list {
+    display: block;
+    position: relative;
+    width: 100%;
+    border: 2px solid #c7902e;
+  }
+}
 nav .nav-drop-project__item {
   display: block;
   width: 100%;
 }
-nav .nav-drop-project__item:hover {
-  background-color: #2e78c7;
+@media not all and (hover: none) {
+  nav .nav-drop-project__item:hover {
+    background-color: #2e78c7;
+  }
 }
-nav .nav-drop-project:hover .nav-drop-project__list {
-  display: block;
+@media not all and (hover: none) {
+  nav .nav-drop-project:hover .nav-drop-project__list {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .nav-tabs .nav-link {
+    padding: 0;
+  }
 }
 
 .kanban {
@@ -116,15 +146,24 @@ nav .nav-drop-project:hover .nav-drop-project__list {
   font-weight: 900;
   text-transform: uppercase;
 }
+@media screen and (max-width: 600px) {
+  .add_task__btn {
+    bottom: 0;
+  }
+}
 .add_task__btn > a {
   color: #043d7a;
   margin-right: 0 !important;
 }
-.add_task__btn > a:hover {
-  background-color: #c7902e !important;
+@media not all and (hover: none) {
+  .add_task__btn > a:hover {
+    background-color: #c7902e !important;
+  }
 }
-.add_task__btn:hover {
-  background-color: #c7902e !important;
+@media not all and (hover: none) {
+  .add_task__btn:hover {
+    background-color: #c7902e !important;
+  }
 }
 .add_task__form--hide {
   display: none;
@@ -176,14 +215,18 @@ nav .nav-drop-project:hover .nav-drop-project__list {
   color: #043d7a;
   margin-right: 0 !important;
 }
-.add_post__btn > a:hover {
-  background-color: #c7902e !important;
+@media not all and (hover: none) {
+  .add_post__btn > a:hover {
+    background-color: #c7902e !important;
+  }
 }
 .add_post__btn > a:focus {
   background-color: #ffe0ab !important;
 }
-.add_post__btn:hover {
-  background-color: #c7902e !important;
+@media not all and (hover: none) {
+  .add_post__btn:hover {
+    background-color: #c7902e !important;
+  }
 }
 .add_post__form--hide {
   display: none;

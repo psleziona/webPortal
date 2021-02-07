@@ -64,17 +64,25 @@
         font-weight: 900;
         text-transform: uppercase;
 
+        @include mobile {
+            bottom: 0;
+        }
+
         & > a {
             color: $secondary-color-darkner;
             margin-right: 0 !important;
 
             &:hover {
-                background-color: $button-background-hover !important;
+                @include hover {
+                    background-color: $button-background-hover !important;
+                }
             }
         }
 
         &:hover {
-            background-color: $button-background-hover !important;
+            @include hover {
+                background-color: $button-background-hover !important;
+            }
         }
     }
     &__form {

@@ -16,7 +16,7 @@
         position: relative;
 
         &::after {
-            content: '';
+            content: "";
             border-bottom: 1px solid $main-color-darkner;
             width: 70%;
             position: absolute;
@@ -61,7 +61,9 @@
             margin-right: 0 !important;
 
             &:hover {
-                background-color: $button-background-hover !important;
+                @include hover {
+                    background-color: $button-background-hover !important;
+                }
             }
 
             &:focus {
@@ -70,12 +72,13 @@
         }
 
         &:hover {
-            background-color: $button-background-hover !important;
+            @include hover {
+                background-color: $button-background-hover !important;
+            }
         }
     }
 
     &__form {
-
         &--hide {
             display: none;
         }

@@ -7,15 +7,26 @@ nav {
 
         &__item {
             display: inline-block;
+
+            @include mobile {
+                display: block;
+            }
+
             cursor: pointer;
 
             &:hover {
-                background-color: $main-color-lighter;
+                @include hover {
+                    background-color: $main-color-lighter;
+                }
             }
 
             &--logout {
                 position: absolute;
                 right: 0;
+
+                @include mobile {
+                    top: 0;
+                }
             }
         }
 
@@ -36,12 +47,11 @@ nav {
         position: relative;
 
         &::after {
-            content: '';
+            content: "";
             background-image: url(#{$imgPath}/drop_arrow.png);
             background-size: 10px 10px;
             width: 5px;
             height: 5px;
-            
         }
 
         &__list {
@@ -51,8 +61,14 @@ nav {
             display: none;
             padding: 0;
             left: 0;
-            bottom: -100px;
             background-color: $main-color-lighter;
+
+            @include mobile {
+                display: block;
+                position: relative;
+                width: 100%;
+                border: 2px solid $main-color-darkner;
+            }
         }
 
         &__item {
@@ -60,15 +76,25 @@ nav {
             width: 100%;
 
             &:hover {
-                background-color: $secondary-color-lighter;
+                @include hover {
+                    background-color: $secondary-color-lighter;
+                }
             }
         }
 
         &:hover {
             & .nav-drop-project__list {
-                display: block;
+                @include hover {
+                    display: block;
+                }
             }
         }
     }
 }
-
+.nav-tabs {
+    & .nav-link {
+        @include mobile {
+            padding: 0;
+        }
+    }
+}
