@@ -4,7 +4,7 @@ from app.models import Users, Project, PostCategory, TaskCategory
 
 db.create_all()
 
-admin = Users(username='pablo', is_active=True, superuser=True, email='gocio@vpszdjecia.online')
+admin = Users(username='pablo',email='gocio@vpszdjecia.online', superuser=True, is_active=True)
 admin.set_password('a')
 
 cat1 = PostCategory(name='main')
