@@ -33,6 +33,9 @@
               <a class="navigation_bar__link" href="{{ url_for('kanban.index', project=project.name) }}">{{ project.name }}</a>
             </li>
             {% endfor %}
+            <li class="nav-drop-project__item navigation_bar__item">
+              <a class="navigation_bar__link" href="{{ url_for('kanban.add_project') }}">Add</a>
+            </li>
           </ul>
         {% endif %}
       </li>

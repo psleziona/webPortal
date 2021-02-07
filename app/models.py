@@ -1,12 +1,13 @@
 from app import login, db
 from datetime import datetime, timedelta
+from time import time
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 
 
 users_projects = db.Table('users_projects',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('users_id', db.Integer, db.ForeignKey('users.id')),
     db.Column('project_id', db.Integer, db.ForeignKey('project.id'))
 )
 
@@ -42,7 +43,8 @@ class Users(UserMixin, db.Model):
     
     def gen_auth_token(self):
         payload = {
-            'username': self.username
+            'username': self.username,
+            'exp': time() + 900
         }
         token = jwt.encode(payload, 'apka', 'HS256')
         return token

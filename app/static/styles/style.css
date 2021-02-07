@@ -43,7 +43,6 @@ nav .nav-drop-project__list {
   display: none;
   padding: 0;
   left: 0;
-  bottom: -100px;
   background-color: #ffe0ab;
 }
 nav .nav-drop-project__item {

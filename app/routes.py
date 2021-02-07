@@ -9,19 +9,20 @@ from app.mails import send_auth_msg
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    if request.args.get('page') == None and request.args.get('category') == None:
-        return redirect(url_for('index', page=1, category='main'))
-
+    print(request.form)
     form = PostForm()
-    comment_form = CommentForm()
-
     if form.validate_on_submit():
         cat = PostCategory.query.filter_by(name=form.category.data).first()
         post = Post(title=form.title.data, content=form.post.data,
                     author=current_user, cat=cat)
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('index', category=form.category.data, page=1))
+        return redirect(url_for('index', page=1, category=form.category.data))
+
+    comment_form = CommentForm()
+
+    if request.args.get('page') == None and request.args.get('category') == None:
+        return redirect(url_for('index', page=1, category='main'))   
         
     page = request.args.get('page', type=int)
     category = request.args.get('category', type=str)
