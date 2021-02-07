@@ -6,13 +6,13 @@ import jwt
 
 
 users_projects = db.Table('users_projects',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
     db.Column('project_id', db.Integer, db.ForeignKey('project.id'))
 )
 
 # App models
 
-class User(UserMixin, db.Model):
+class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30))
     password = db.Column(db.String(100))
@@ -53,7 +53,7 @@ class Post(db.Model):
     title = db.Column(db.String(50))
     content = db.Column(db.Text)
     time = db.Column(db.DateTime, default=datetime.utcnow)
-    owner = db.Column(db.Integer, db.ForeignKey('user.id'))
+    owner = db.Column(db.Integer, db.ForeignKey('users.id'))
     visible = db.Column(db.Boolean, default=True)
     category = db.Column(db.Integer, db.ForeignKey('post_category.id'))
     comments = db.relationship('Comment', backref='pos')
@@ -93,7 +93,7 @@ class Task(db.Model):
     deadline = db.Column(db.Date)
     category = db.Column(db.Integer, db.ForeignKey('task_category.id'), default=1)
     workgroup = db.Column(db.Integer, db.ForeignKey('project.id'))
-    handled_by = db.Column(db.Integer, db.ForeignKey('user.id'))
+    handled_by = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return f'<Activity {self.name}>'
@@ -116,7 +116,7 @@ class Project(db.Model):
     name = db.Column(db.String(30))
     description = db.Column(db.Text)
     tasks = db.relationship('Task', backref='project', lazy='dynamic')
-    users = db.relationship('User', secondary=users_projects, backref='member')
+    users = db.relationship('Users', secondary=users_projects, backref='member')
 
     def __repr__(self):
         return f'<Project {self.name}>'
@@ -124,4 +124,4 @@ class Project(db.Model):
 
 @login.user_loader
 def get_user(id):
-    return User.query.get(id)
+    return Users.query.get(id)

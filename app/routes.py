@@ -1,7 +1,7 @@
 from app import app, db, login
 from flask import request, render_template, redirect, url_for, flash
 from flask_login import login_user, current_user, logout_user, login_required
-from app.models import User, Post, PostCategory, Comment
+from app.models import Users, Post, PostCategory, Comment
 from app.forms import PostForm, RegisterForm, LoginForm, CommentForm
 import jwt
 from app.mails import send_auth_msg
@@ -14,7 +14,6 @@ def index():
 
     form = PostForm()
     comment_form = CommentForm()
-    print(form.post.data)
 
     if form.validate_on_submit():
         cat = PostCategory.query.filter_by(name=form.category.data).first()
@@ -36,7 +35,7 @@ def index():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = Users(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         auth_token = user.gen_auth_token()
         auth_link = app.config['HOST'] + url_for('auth', token=auth_token)
@@ -52,7 +51,7 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = Users.query.filter_by(username=form.username.data).first()
         if user.check_password(form.password.data):
             login_user(user)
             flash('Success logged')
@@ -71,7 +70,7 @@ def logout():
 @login_required
 def features():
     posts = Post.query.all()
-    users = User.query.all()
+    users = Users.query.all()
     return render_template('features.html', posts=posts, users=users)
 
 
@@ -103,7 +102,7 @@ def auth(token):
     try:
         data = jwt.decode(token, 'apka', 'HS256')
         user = data['username']
-        user = User.query.filter_by(username=user).first()
+        user = Users.query.filter_by(username=user).first()
         user.confirm_user()
         db.session.commit()
         flash('Confirm success')
