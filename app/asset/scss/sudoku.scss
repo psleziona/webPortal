@@ -1,5 +1,4 @@
 .sudoku {
-
     &__board {
         display: flex;
         flex-wrap: wrap;
@@ -18,14 +17,22 @@
 
         &:nth-of-type(odd) {
             background-color: $secondary-color-lighter;
+
+            &.marked {
+                background-color: $secondary-color-lighter-transparent;
+            }
         }
 
         &:nth-of-type(even) {
             background-color: $main-color-lighter;
+
+            &.marked {
+                background-color: $main-color-lighter-transparent;
+            }
         }
 
         &.selected {
-            background-color:$main-color-darkner;
+            background-color: $main-color-darkner;
         }
 
         &.locked {
@@ -33,22 +40,33 @@
             pointer-events: none;
         }
 
-        &.marked {
-            background-color: hotpink;
+        &.valid {
+            background-color: white !important;
+            &::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: block;
+                top: 0;
+                background-color: lawngreen;
+                opacity: 0.5;
+            }
         }
 
-
-        // &:hover {
-        //     // &::after {
-        //     //     content: '';
-        //     //     width: 150px;
-        //     //     height: 150px;
-        //     //     background-color: green;
-        //     //     position: absolute;
-        //     //     top: 0;
-        //     //     right: 0;
-        //     // }
-        // }
+        &.unvalid {
+            background-color: white !important;
+            &::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: block;
+                top: 0;
+                background-color: red;
+                opacity: 0.5;
+            }
+        }
     }
 }
 

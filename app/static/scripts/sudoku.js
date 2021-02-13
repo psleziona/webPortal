@@ -110,19 +110,24 @@ const gameHandler = () => {
 
     checkCellBtn.addEventListener('click', () => {
         let cell = document.querySelector('.selected');
-        const form = new FormData();
-        form.append('cords', [cell.id[2], cell.id[5]]);
-        form.append('value', cell.innerText[0]);
+        if (cell.classList.contains('valid') || cell.classList.contains('unvalid')) {
+            cell.classList.remove('valid');
+            cell.classList.remove('unvalid');
+        } else {
+            const form = new FormData();
+            form.append('cords', [cell.id[2], cell.id[5]]);
+            form.append('value', cell.innerText[0]);
 
-        req.open('POST', '/sudoku/check_cell');
-        req.send(form);
-        req.onreadystatechange = () => {
-            if (req.readyState == 4) {
-                const res = JSON.parse(req.response).valid;
-                if (res) {
-                    cell.style.backgroundColor = 'green';
-                } else {
-                    cell.style.backgroundColor = 'red';
+            req.open('POST', '/sudoku/check_cell');
+            req.send(form);
+            req.onreadystatechange = () => {
+                if (req.readyState == 4) {
+                    const res = JSON.parse(req.response).valid;
+                    if (res) {
+                        cell.classList.add('valid');
+                    } else {
+                        cell.classList.add('unvalid');
+                    }
                 }
             }
         }
