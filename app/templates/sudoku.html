@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="sudoku">
+        <div class="sudoku__buttons">
+            <label for="mode">Game mode</label>
+            <select name="mode" id="game_mode">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <button id="sudoku_new_game">New game</button>
+            <button id="sudoku_check_cell">Check cell</button>
+            <button id="sudoku_solve">Solve board</button>
+        </div>
+        <div class="sudoku__board">
+            {% for row in board %}
+            {% set posy = loop %}
+                {% for col in row %}
+                <span class="sudoku__cell" id='y:{{ posy.index0 }}x:{{ loop.index0 }}'>{{ col }}</span>
+                {%endfor%}
+            {%endfor%}
+        </div>
+    </div>
+</div>
+<div class="numbers-tool">
+    {% for nr in range(1,10) %}
+     <span class="numbers-tool__number">{{ nr }}</span>
+     {% endfor %}
+     <span class="numbers-tool__clear">Clear</span>
+</div>
+{% endblock %}
+{% block scripts %}
+ {{ super() }}
+ <script src="{{ url_for('static', filename='scripts/sudoku.js') }}"></script>
+ {% endblock %}

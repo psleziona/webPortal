@@ -1,0 +1,86 @@
+.sudoku {
+
+    &__board {
+        display: flex;
+        flex-wrap: wrap;
+        width: 60%;
+        border: 5px solid $main-color-darkner;
+    }
+
+    &__cell {
+        flex: 0 0 calc(100% / 9);
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        padding: 14px 0;
+        position: relative;
+        cursor: pointer;
+
+        &:nth-of-type(odd) {
+            background-color: $secondary-color-lighter;
+        }
+
+        &:nth-of-type(even) {
+            background-color: $main-color-lighter;
+        }
+
+        &.selected {
+            background-color:$main-color-darkner;
+        }
+
+        &.locked {
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        &.marked {
+            background-color: hotpink;
+        }
+
+
+        // &:hover {
+        //     // &::after {
+        //     //     content: '';
+        //     //     width: 150px;
+        //     //     height: 150px;
+        //     //     background-color: green;
+        //     //     position: absolute;
+        //     //     top: 0;
+        //     //     right: 0;
+        //     // }
+        // }
+    }
+}
+
+.numbers-tool {
+    background-color: rgb(238, 142, 64);
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    display: none;
+    flex-wrap: wrap;
+    z-index: 5;
+    top: -17px;
+    left: 75px;
+    border-radius: 10px;
+    overflow: hidden;
+
+    &__number {
+        cursor: pointer;
+        flex: 0 0 calc(100% / 3);
+
+        &:hover {
+            background-color: rgb(201, 145, 81);
+        }
+    }
+
+    &__clear {
+        cursor: pointer;
+        flex: 0 0 100%;
+        text-align: center;
+
+        &:hover {
+            background-color: rgb(202, 121, 0);
+        }
+    }
+}

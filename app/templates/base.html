@@ -23,23 +23,23 @@
         <a class="navigation_bar__link" href="{{ url_for('register') }}">Register</a>
       </li>
       {% else %}
-      {% if current_user.is_active %}
-      <li class="navigation_bar__item nav-drop-project">
-        <a class="navigation_bar__link" href="{{ url_for('kanban.index') }}">Todo</a>
-        {% if current_user.project %}
-          <ul class="nav-drop-project__list">
-            {% for project in current_user.project %}
-            <li class="nav-drop-project__item navigation_bar__item">
-              <a class="navigation_bar__link" href="{{ url_for('kanban.index', project=project.name) }}">{{ project.name }}</a>
-            </li>
-            {% endfor %}
-            <li class="nav-drop-project__item navigation_bar__item">
-              <a class="navigation_bar__link" href="{{ url_for('kanban.add_project') }}">Add</a>
-            </li>
-          </ul>
+        {% if current_user.is_active %}
+        <li class="navigation_bar__item nav-drop-project">
+          <a class="navigation_bar__link" href="{{ url_for('kanban.index') }}">Todo</a>
+          {% if current_user.project %}
+            <ul class="nav-drop-project__list">
+              {% for project in current_user.project %}
+              <li class="nav-drop-project__item navigation_bar__item">
+                <a class="navigation_bar__link" href="{{ url_for('kanban.index', project=project.name) }}">{{ project.name }}</a>
+              </li>
+              {% endfor %}
+              <li class="nav-drop-project__item navigation_bar__item">
+                <a class="navigation_bar__link" href="{{ url_for('kanban.add_project') }}">Add</a>
+              </li>
+            </ul>
+          {% endif %}
+        </li>
         {% endif %}
-      </li>
-      {% endif %}
       <li class="navigation_bar__item">
         <a href="{{ url_for('user_page', user=current_user.username) }}" class="navigation_bar__link">{{ current_user.username }}</a>
       </li>
@@ -52,6 +52,9 @@
         <a href="{{ url_for('logout') }}" class="navigation_bar__link">Wyloguj</a>
       </li>
       {% endif %}
+      <li class="navigation_bar__item navigation_bar__item">
+        <a href="{{ url_for('sudoku.index') }}" class="navigation_bar__link">Sudoku</a>
+      </li>
     </ul>
 
   </nav>

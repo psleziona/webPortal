@@ -12,7 +12,7 @@ const category_tabs = () => {
     if (project) {
         project = project.toLowerCase();
     }
-    
+
     let tabs = document.querySelector('.nav-tabs').children;
 
 
@@ -26,9 +26,10 @@ const category_tabs = () => {
 
 }
 
+
+
 document.addEventListener('DOMContentLoaded', function () {
     category_tabs()
-
 
     const add_post = document.querySelector('.add_post__form');
     const add_post_btn = document.querySelector('.add_post__btn');
@@ -87,6 +88,16 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     dynamic_change_post_category()
 
+
+    const add_task_btn = document.querySelector('.add_task__btn')
+    const add_task__form = document.querySelector('.add_task__form')
+
+    add_task_btn.addEventListener('click', e => {
+        e.preventDefault()
+        add_task__form.classList.toggle('add_task__form--hide')
+    });
+
+
 });
 
 
@@ -144,7 +155,7 @@ const task_del_btns = document.querySelectorAll('.task__delete')
 
 task_del_btns.forEach(del_btn => {
 
-    del_btn.addEventListener('click', function() {
+    del_btn.addEventListener('click', function () {
         task_id = this.parentElement.id
         req.open('POST', '/kanban/delete_task/' + task_id)
         req.send(null)
@@ -155,10 +166,3 @@ task_del_btns.forEach(del_btn => {
     });
 });
 
-const add_task_btn = document.querySelector('.add_task__btn')
-const add_task__form = document.querySelector('.add_task__form')
-
-add_task_btn.addEventListener('click', e => {
-    e.preventDefault()
-    add_task__form.classList.toggle('add_task__form--hide')
-});
